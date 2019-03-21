@@ -190,6 +190,10 @@
     <Compile Include="Migrations\201903211428008_update1.Designer.cs">
       <DependentUpon>201903211428008_update1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903211508484_update2.cs" />
+    <Compile Include="Migrations\201903211508484_update2.Designer.cs">
+      <DependentUpon>201903211508484_update2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Employee.cs" />
@@ -198,7 +202,7 @@
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\PurchasingManager.cs" />
-    <Compile Include="Models\SuperVisor.cs" />
+    <Compile Include="Models\ProductionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -258,12 +262,12 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\PurchasingManager\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Employee\" />
     <Folder Include="Views\ProductionManager\" />
-    <Folder Include="Views\PurchasingManager\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -284,6 +288,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903211428008_update1.resx">
       <DependentUpon>201903211428008_update1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903211508484_update2.resx">
+      <DependentUpon>201903211508484_update2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

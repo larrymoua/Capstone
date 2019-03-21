@@ -7,7 +7,7 @@ using System.Web;
 
 namespace SoloCapstone.Models
 {
-    public class SuperVisor
+    public class ProductionManager
     {
         [Key]
         public int SuperVisorId { get; set; }

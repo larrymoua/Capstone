@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using SoloCapstone.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +10,11 @@ namespace SoloCapstone.Controllers
 {
     public class EmployeeController : Controller
     {
+        ApplicationDbContext db;
+        public EmployeeController()
+        {
+           db = new ApplicationDbContext();
+        }
         // GET: Employee
         public ActionResult Index()
         {
@@ -23,17 +30,20 @@ namespace SoloCapstone.Controllers
         // GET: Employee/Create
         public ActionResult Create()
         {
-            return View();
+            Employee employee = new Employee();
+            return View(employee);
         }
 
         // POST: Employee/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Employee employee)
         {
+            var CurrentUser = User.Identity.GetUserId();
             try
             {
-                // TODO: Add insert logic here
-
+                employee.ApplicationUserId = CurrentUser;
+                db.Employees.Add(employee);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

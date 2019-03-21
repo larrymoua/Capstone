@@ -42,8 +42,8 @@ namespace SoloCapstone.Controllers
             try
             {
                 createPurchasingManager.ApplicationUserId = CurrentUser;
-               
-
+                db.PurchasingManagers.Add(createPurchasingManager);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }

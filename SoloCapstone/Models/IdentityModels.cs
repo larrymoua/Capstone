@@ -29,7 +29,7 @@ namespace SoloCapstone.Models
         {
             return new ApplicationDbContext();
         }
-        public DbSet<SuperVisor> superVisors { get; set; }
+        public DbSet<ProductionManager> ProductionManagers { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Order> orders { get; set; }
         public DbSet<Product> products {get; set;}

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using SoloCapstone.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +10,11 @@ namespace SoloCapstone.Controllers
 {
     public class ProductionManagerController : Controller
     {
+        ApplicationDbContext db;
+        public ProductionManagerController()
+        {
+            db = new ApplicationDbContext();
+        }
         // GET: ProductionManager
         public ActionResult Index()
         {
@@ -23,17 +30,20 @@ namespace SoloCapstone.Controllers
         // GET: ProductionManager/Create
         public ActionResult Create()
         {
-            return View();
+            ProductionManager productionManager = new ProductionManager();
+            return View(productionManager);
         }
 
         // POST: ProductionManager/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ProductionManager productionManager)
         {
+            var CurrentUser = User.Identity.GetUserId();
             try
             {
-                // TODO: Add insert logic here
-
+                productionManager.ApplicationUserId = CurrentUser;
+                db.ProductionManagers.Add(productionManager);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
