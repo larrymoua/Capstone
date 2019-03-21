@@ -17,6 +17,7 @@ namespace SoloCapstone.Models
         public string OrderConfirmationNumber { get; set; }
         public string CustomerName { get; set; }
         public OrderStatus OrderStatus { get; set; }
+        public string CurrentlyWorkingOn { get; set; }
 
         public IEnumerable <CoaxialCable> coaxialCables { get; set; }
     }

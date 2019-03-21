@@ -25,6 +25,19 @@ namespace SoloCapstone.Controllers
         public ActionResult Details(int id)
         {
             var foundOrder = db.orders.Find(id);
+
+            if(foundOrder.OrderStatus.ToString().Equals("OrderConfirmed"))
+            {
+                ViewBag.OrderStatus = "25";
+            }
+            else if (foundOrder.OrderStatus.ToString().Equals("BeingPrepared"))
+            {
+                ViewBag.OrderStatus = "65";
+            }
+            else
+            {
+                ViewBag.OrderStatus = "100";
+            }
             return View(foundOrder);
         }
 
@@ -53,16 +66,20 @@ namespace SoloCapstone.Controllers
         // GET: Order/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var foundOrder = db.orders.Find(id);
+            return View(foundOrder);
         }
 
         // POST: Order/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Order order)
         {
+            var foundOrder = db.orders.Find(order.OrderId);
             try
             {
-                // TODO: Add update logic here
+                foundOrder.OrderStatus = order.OrderStatus;
+                foundOrder.DueDate = order.DueDate;
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }

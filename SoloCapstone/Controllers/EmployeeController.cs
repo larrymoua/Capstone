@@ -18,7 +18,7 @@ namespace SoloCapstone.Controllers
         // GET: Employee
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Order");
         }
 
         // GET: Employee/Details/5
@@ -44,7 +44,7 @@ namespace SoloCapstone.Controllers
                 employee.ApplicationUserId = CurrentUser;
                 db.Employees.Add(employee);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Order");
             }
             catch
             {
