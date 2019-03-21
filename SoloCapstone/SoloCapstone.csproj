@@ -177,22 +177,15 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductionManagerController.cs" />
     <Compile Include="Controllers\PurchasingManagerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903211427154_update.cs" />
-    <Compile Include="Migrations\201903211427154_update.Designer.cs">
-      <DependentUpon>201903211427154_update.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903211428008_update1.cs" />
-    <Compile Include="Migrations\201903211428008_update1.Designer.cs">
-      <DependentUpon>201903211428008_update1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903211508484_update2.cs" />
-    <Compile Include="Migrations\201903211508484_update2.Designer.cs">
-      <DependentUpon>201903211508484_update2.cs</DependentUpon>
+    <Compile Include="Migrations\201903211604400_update.cs" />
+    <Compile Include="Migrations\201903211604400_update.Designer.cs">
+      <DependentUpon>201903211604400_update.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -200,7 +193,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\CoaxialCable.cs" />
     <Compile Include="Models\PurchasingManager.cs" />
     <Compile Include="Models\ProductionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -263,11 +256,12 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\PurchasingManager\Create.cshtml" />
+    <Content Include="Views\ProductionManager\Create.cshtml" />
+    <Content Include="Views\Employee\Create.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Employee\" />
-    <Folder Include="Views\ProductionManager\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -283,14 +277,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903211427154_update.resx">
-      <DependentUpon>201903211427154_update.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903211428008_update1.resx">
-      <DependentUpon>201903211428008_update1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903211508484_update2.resx">
-      <DependentUpon>201903211508484_update2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903211604400_update.resx">
+      <DependentUpon>201903211604400_update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

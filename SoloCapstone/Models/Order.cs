@@ -18,7 +18,7 @@ namespace SoloCapstone.Models
         public string CustomerName { get; set; }
         public OrderStatus OrderStatus { get; set; }
 
-        public IEnumerable <Product> product { get; set; }
+        public IEnumerable <CoaxialCable> coaxialCables { get; set; }
     }
     public enum OrderStatus
     {

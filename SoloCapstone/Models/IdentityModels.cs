@@ -32,7 +32,7 @@ namespace SoloCapstone.Models
         public DbSet<ProductionManager> ProductionManagers { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Order> orders { get; set; }
-        public DbSet<Product> products {get; set;}
+        public DbSet<CoaxialCable> products {get; set;}
         public DbSet<PurchasingManager> PurchasingManagers { get; set; }
     }
 }

@@ -44,6 +44,26 @@ namespace SoloCapstone.Controllers
                 productionManager.ApplicationUserId = CurrentUser;
                 db.ProductionManagers.Add(productionManager);
                 db.SaveChanges();
+                return RedirectToAction("Index","Order");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        public ActionResult CreateWorkOrder()
+        {
+            Order order = new Order();
+            return View(order);
+        }
+        [HttpPost]
+        public ActionResult CreateWorkOrder(Order order)
+        {
+            var CurrentUser = User.Identity.GetUserId();
+            try
+            {
+                db.orders.Add(order);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
