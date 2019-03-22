@@ -1,7 +1,8 @@
 ﻿@model SoloCapstone.Models.Order
 
+
 @{
-    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutLogIn.cshtml";
 }
 
 <h2>Details</h2>
@@ -54,6 +55,9 @@
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: @ViewBag.OrderStatus%"></div>
     </div>
 </div>
+<p>
+    @Html.ActionLink("Materials For Work Order", "OrderMaterials", new { id = Model.OrderId })
+</p>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.OrderId }) |
     @Html.ActionLink("Back to List", "Index")

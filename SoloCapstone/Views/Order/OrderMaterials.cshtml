@@ -1,0 +1,66 @@
+﻿@model SoloCapstone.Models.CoaxialCable
+
+@{
+    ViewBag.Title = "OrderMaterials";
+}
+
+<h2>OrderMaterials</h2>
+
+<div>
+    <h4>CoaxialCable</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PartName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PartName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AWG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AWG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Impedance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Impedance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CableQuantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CableQuantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ConnecterQuantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ConnecterQuantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HeatShrinkQuantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HeatShrinkQuantity)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PartId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

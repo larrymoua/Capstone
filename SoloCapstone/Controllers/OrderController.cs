@@ -42,6 +42,13 @@ namespace SoloCapstone.Controllers
             }
             return View(foundOrder);
         }
+        public ActionResult OrderMaterials(int id)
+        {
+            var foundOrder = db.orders.Find(id);
+            var Product = foundOrder.coaxialCables.Select(c => c).ToList();
+
+            return View(Product);
+        }
 
         // GET: Order/Create
         public ActionResult Create()
