@@ -55,7 +55,7 @@ namespace SoloCapstone.Controllers
         // GET: Employee/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View("Edit", "Order", id);
         }
 
         // POST: Employee/Edit/5

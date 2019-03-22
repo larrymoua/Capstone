@@ -1,4 +1,5 @@
-﻿using SoloCapstone.Models;
+﻿using Microsoft.AspNet.Identity;
+using SoloCapstone.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace SoloCapstone.Controllers
         public ActionResult Index()
         {
             var Orders = db.orders.Select(e => e).ToList();
+            Orders = Orders.OrderBy(o => o.DueDate).ToList();
             return View(Orders);
         }
 
@@ -74,11 +76,21 @@ namespace SoloCapstone.Controllers
         [HttpPost]
         public ActionResult Edit(Order order)
         {
+            var CurrentUser = User.Identity.GetUserId();
             var foundOrder = db.orders.Find(order.OrderId);
             try
             {
                 foundOrder.OrderStatus = order.OrderStatus;
-                foundOrder.DueDate = order.DueDate;
+                if (!foundOrder.DueDate.Equals(order.DueDate) && User.IsInRole("ProductionManager"))
+                {
+                    foundOrder.DueDate = order.DueDate;
+                }
+                if (User.IsInRole("Employee"))
+                {
+                    var foundWorker = db.Employees.Where(e => e.ApplicationUserId == CurrentUser).Single();
+                    foundOrder.CurrentlyWorkingOn = foundWorker.FirstName;
+                }
+              
                 db.SaveChanges();
 
                 return RedirectToAction("Index");

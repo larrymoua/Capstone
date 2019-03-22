@@ -9,8 +9,11 @@
 <p>
 
 </p>
-
+@if (ViewContext.HttpContext.User.IsInRole("ProductionManager"))
+{
     @Html.ActionLink("Create New", "Create")
+}
+
 <table class="table">
     <tr>
         <th>
@@ -38,9 +41,13 @@
                 @Html.DisplayFor(modelItem => item.CustomerName)
             </td>
             <td>
+                @if (ViewContext.HttpContext.User.IsInRole("ProductionManager"))
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.OrderId })
+                }
                 @Html.ActionLink("Edit", "Edit", new { id = item.OrderId }) |
                 @Html.ActionLink("Details", "Details", new { id = item.OrderId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.OrderId })
+
             </td>
         </tr>
     }

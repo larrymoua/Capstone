@@ -11,10 +11,13 @@ namespace SoloCapstone.Models
     {
         [Key]
         public int PartId { get; set; }
-        public PartName PartName { get; set; }
+        public string PartName { get; set; }
         public int AWG { get; set; }
         public string Impedance { get; set; }
         public ProductStatus status { get; set; }
+        public double CableQuantity { get; set; }
+        public double ConnecterQuantity { get; set; }
+        public double HeatShrinkQuantity { get; set; }
         public int OrderId { get; set; }
         [ForeignKey("OrderId")]
      
@@ -27,15 +30,5 @@ namespace SoloCapstone.Models
         Stage3,
         Finished,
         
-    }
-    public enum PartName
-    {
-       P310701,
-       P310801,
-       P311201,
-       P311501,
-       P311601
-
-
     }
 }
