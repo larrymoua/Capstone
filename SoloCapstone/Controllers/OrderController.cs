@@ -9,6 +9,8 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
+using System.Net.Http.Formatting;
+
 
 namespace SoloCapstone.Controllers
 {
@@ -147,6 +149,42 @@ namespace SoloCapstone.Controllers
 
             }
             return View(inventories);
+        }
+        public ActionResult DeleteInventoryItem()
+        {
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:52290/");
+                var response = client.DeleteAsync("api/Inventory/");
+          
+
+            }
+            return View("ShowInventory");
+        }
+        public ActionResult CreateInventoryItem()
+        {
+            InventoryModel model = new InventoryModel(); 
+            return View("CreateInventoryItem", model);
+        }
+        [HttpPost]
+        public ActionResult CreateInventoryItem(InventoryModel inventory)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("http://localhost:52290/");
+                    var response = client.PostAsJsonAsync("api/Inventory/", inventory).Result;
+                    return RedirectToAction("ShowInventory");
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("ShowInventory");
+            }
+
+
         }
 
     }
