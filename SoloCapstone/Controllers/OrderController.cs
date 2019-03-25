@@ -1,10 +1,14 @@
 ﻿using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using SoloCapstone.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 
 namespace SoloCapstone.Controllers
 {
@@ -129,5 +133,21 @@ namespace SoloCapstone.Controllers
                 return View();
             }
         }
+        public ActionResult ShowInventory()
+        {
+            IList<InventoryModel> inventories = new List<InventoryModel>();
+
+            using (var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate }))
+            {
+                client.BaseAddress = new Uri("http://localhost:52290/api/Inventory/");
+                HttpResponseMessage response = client.GetAsync("").Result;
+                response.EnsureSuccessStatusCode();
+                var result = response.Content.ReadAsStringAsync().Result;
+                inventories = JsonConvert.DeserializeObject<List<InventoryModel>>(result);
+
+            }
+            return View(inventories);
+        }
+
     }
 }

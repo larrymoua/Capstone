@@ -202,6 +202,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\InventoryModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\CoaxialCable.cs" />
@@ -277,6 +278,7 @@
     <Content Include="Views\Order\Edit.cshtml" />
     <Content Include="Views\ProductionManager\Index.cshtml" />
     <Content Include="Views\Order\OrderMaterials.cshtml" />
+    <Content Include="Views\Order\ShowInventory.cshtml" />
     <None Include="Views\Shared\_LayoutLogIn.cshtml" />
   </ItemGroup>
   <ItemGroup>

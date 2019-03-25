@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutLogIn.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Work Orders</h2>
 
 <p>
 
@@ -45,7 +45,7 @@
                 @if (ViewContext.HttpContext.User.IsInRole("ProductionManager"))
                 {
                     @Html.ActionLink("Delete", "Delete", new { id = item.OrderId })
-                }
+                } |
                 @Html.ActionLink("Edit", "Edit", new { id = item.OrderId }) |
                 @Html.ActionLink("Details", "Details", new { id = item.OrderId }) |
 
