@@ -10,7 +10,7 @@ namespace SoloCapstone.Models
     {
         [Display(Name = "Item Name")]
         public string ItemName { get; set; }
-        public double Quantity { get; set; }
+        public int Quantity { get; set; }
         public string ItemPartNumber { get; set; }
     }
 }

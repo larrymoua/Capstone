@@ -157,8 +157,6 @@ namespace SoloCapstone.Controllers
             {
                 client.BaseAddress = new Uri("http://localhost:52290/");
                 var response = client.DeleteAsync("api/Inventory/");
-          
-
             }
             return View("ShowInventory");
         }
