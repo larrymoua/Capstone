@@ -10,6 +10,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
 using System.Net.Http.Formatting;
+using System.Data;
+using System.Data.Entity;
 
 
 namespace SoloCapstone.Controllers
@@ -24,11 +26,29 @@ namespace SoloCapstone.Controllers
         // GET: Order
         public ActionResult Index()
         {
-            var Orders = db.orders.Select(e => e).ToList();
-            Orders = Orders.OrderBy(o => o.DueDate).ToList();
-            return View(Orders);
+            return View();
         }
+        public JsonResult GetAllOrders()
+        {
+            List<Order> orders = db.orders.Select(e => e).ToList();
+            orders = orders.OrderBy(o => o.DueDate).ToList();
+            return Json(orders, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetAllInventoryItems()
+        {
+            IList<InventoryModel> inventories = new List<InventoryModel>();
 
+            using (var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate }))
+            {
+                client.BaseAddress = new Uri("http://localhost:52290/api/Inventory/");
+                HttpResponseMessage response = client.GetAsync("").Result;
+                response.EnsureSuccessStatusCode();
+                var result = response.Content.ReadAsStringAsync().Result;
+                inventories = JsonConvert.DeserializeObject<List<InventoryModel>>(result);
+
+            }
+            return Json(inventories, JsonRequestBehavior.AllowGet);
+        }
         // GET: Order/Details/5
         public ActionResult Details(int id)
         {
@@ -184,6 +204,27 @@ namespace SoloCapstone.Controllers
 
 
         }
+        public ActionResult EditInventoryItem(string itemPartNumber)
+        {
+            InventoryModel inventoryModel = new InventoryModel { ItemPartNumber = itemPartNumber };
+            return View(inventoryModel);
+        }
 
+        // POST: Order/Edit/5
+        [HttpPost]
+        public ActionResult EditInventoryItem(InventoryModel inventoryModel)
+        {
+
+            try
+            {
+  
+
+                return RedirectToAction("ShowInventory");
+            }
+            catch
+            {
+                return RedirectToAction("ShowInventory");
+            }
+        }
     }
 }

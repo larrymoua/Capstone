@@ -5,52 +5,109 @@
     Layout = "~/Views/Shared/_LayoutLogIn.cshtml";
 }
 
-<h2>Work Orders</h2>
+<div class="container" ng-app="SoloCapstone" ng-controller="mainController">
 
-<p>
+    <div class="alert alert-success">
+        <p>Sort Type: {{ sortType }}</p>
+    </div>
+    <form>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                <input type="text" class="form-control" placeholder="Search Work Order" ng-model="searchInventory">
+            </div>
+        </div>
+    </form>
 
-</p>
-@if (ViewContext.HttpContext.User.IsInRole("ProductionManager"))
-{
-    @Html.ActionLink("Create New", "Create")
+    <table class="table table-bordered table-striped">
+
+        <thead>
+            <tr>
+                <td>
+                    <a href="#" ng-click="sortType = 'DueDate'; sortReverse = !sortReverse">
+                        Due Date
+                        <span ng-show="sortType == 'Due Date' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'Due Date' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </td>
+                <td>
+                    <a href="#" ng-click="sortType = 'OrderConfirmationNumber'; sortReverse = !sortReverse">
+                        Order Confirmation Number
+                        <span ng-show="sortType == 'Order Confirmation Number' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'Order Confirmation Number' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </td>
+                <td>
+                    <a href="#" ng-click="sortType = 'CustomerName'; sortReverse = !sortReverse">
+                        Customer Name
+                        <span ng-show="sortType == 'Customer Name' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'Customer Name' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr ng-repeat="aOrder in orders | orderBy:sortType:sortReverse | filter:searchInventory">
+                <td>{{ aOrder.DueDate| mydate | date: 'yyyy-MM-dd ' }}</td>
+                <td>{{ aOrder.OrderConfirmationNumber }}</td>
+                <td>{{ aOrder.CustomerName }}</td>
+                <td>
+                    @foreach (var item in Model)
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.OrderId })|
+                        @Html.ActionLink("Details", "Details", new { id = item.OrderId })|
+                        @Html.ActionLink("Delete", "DeleteInventoryItem", new { id = item.OrderId })|
+                    }
+                </td>     
+            </tr>
+        </tbody>
+
+    </table>
+
+    <p class="text-center text-muted">
+        <a href="#" target="_blank">Read the Tutorial</a>
+    </p>
+
+    <p class="text-center">
+        by <a href="https://scotch.io" target="_blank">scotch.io</a>
+    </p>
+
+</div>
+@section scripts
+    {
+    <script src="~/Scripts/angular.js"></script>
+    <script>
+        var app = angular.module('SoloCapstone', []);
+        app.controller("mainController",function ($scope, $http) {
+            $http.get('@Url.Action("GetAllOrders", "Order")')
+                .then(successCallback, errorCallback);
+
+            function successCallback(data) {
+                $scope.orders = {};
+                $scope.orders = data.data;
+            };
+            function errorCallback(error) {
+                //error code
+            };
+        });
+        app.filter("mydate", function () {
+            var re = /\/Date\(([0-9]*)\)\//;
+            return function (x) {
+                var m = x.match(re);
+                if (m) return new Date(parseInt(m[1]));
+                else return null;
+            };
+            app.filter("mydate", function () {
+                var re = /\/Date\(([0-9]*)\)\//;
+                return function (x) {
+                    var m = x.match(re);
+                    if (m) return new Date(parseInt(m[1]));
+                    else return null;
+                };
+            });
+        });
+    </script>
+
 }
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DueDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OrderConfirmationNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerName)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DueDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderConfirmationNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerName)
-            </td>
-            <td>
-                @if (ViewContext.HttpContext.User.IsInRole("ProductionManager"))
-                {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.OrderId })
-                } |
-                @Html.ActionLink("Edit", "Edit", new { id = item.OrderId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.OrderId }) |
-
-            </td>
-        </tr>
-    }
-
-</table>
