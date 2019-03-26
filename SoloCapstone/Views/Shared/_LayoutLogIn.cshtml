@@ -17,7 +17,6 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-     
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -25,6 +24,10 @@
                     <li>@Html.ActionLink("Home", "Index", "ProductionManager")</li>
                     <li>@Html.ActionLink("Orders", "Index", "Order")</li>
                     <li>@Html.ActionLink("Inventory", "ShowInventory", "Order")</li>
+                    <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-facebook"></i></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-twitter"></i></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-google-plus"></i></a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-pinterest-p"></i></a></li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -37,7 +40,31 @@
             <p>&copy; @DateTime.Now.Year -CapStone</p>
         </footer>
     </div>
+    <div class="container">
+        <div class="box rotate"></div>
+    </div>
+    <style>
+        .box {
+            margin: 50px auto;
+            background: #5FCF80;
+            width: 150px;
+            height: 150px;
+        }
 
+            .box:hover {
+                transform: rotate(360deg);
+                background: #9351A6;
+                border-radius: 50%;
+            }
+
+        .rotate {
+            transition: all 0.5s ease-in-out;
+        }
+
+            .rotate:hover {
+                transition: all 1s ease-in-out;
+            }
+    </style>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

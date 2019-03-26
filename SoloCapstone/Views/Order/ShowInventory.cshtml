@@ -4,78 +4,76 @@
 @{
     Layout = "~/Views/Shared/_LayoutLogIn.cshtml";
 }
-
-<h2>Inventory</h2>
-
-<p>
-    @Html.ActionLink("Create New", "CreateInventoryItem")
-</p>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="container" ng-app="SoloCapstone" ng-controller="mainController">
 
-    <div class="alert alert-success">
-        <p>Sort Type: {{ sortType }}</p>
+    <div class="alert alert-info">
+        <h2>Manage <b>Inventory</b></h2>
     </div>
-    <form>
-        <div class="form-group">
-            <div class="input-group">
-                <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                <input type="text" class="form-control" placeholder="Search Inventory Item" ng-model="searchInventory">
+        <form>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                    <input type="text" class="form-control" placeholder="Search Inventory Item" ng-model="searchInventory">
+                </div>
             </div>
+        </form>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <td>
+                        <a href="#" ng-click="sortType = 'ItemName'; sortReverse = !sortReverse">
+                            Item Name
+                            <span ng-show="sortType == 'Item Name' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'Item Name' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" ng-click="sortType = 'Quantity'; sortReverse = !sortReverse">
+                            Quantity
+                            <span ng-show="sortType == 'Quantity' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'Quantity' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" ng-click="sortType = 'ItemPartNumber'; sortReverse = !sortReverse">
+                            Item Part Number
+                            <span ng-show="sortType == 'Item Part Number' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'Item Part Number' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </td>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="item in items | orderBy:sortType:sortReverse | filter:searchInventory">
+                    <td>{{item.ItemName}}</td>
+                    <td>{{item.Quantity}}</td>
+                    <td>{{item.ItemPartNumber }}</td>
+                    <td>
+                        <a data-ng-href="@Url.Action("Edit", "Order")/{{Item.OrderId}}" ,i class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        <a data-ng-href="@Url.Action("DeleteInventoryItem", "Order")/{{Item.OrderId}}" , class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        <a data-ng-href="@Url.Action("Details", "Order")/{{Item.OrderId}}" , class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Details">more_horiz</i></a>
+                        <a data-ng-href="@Url.Action("Edit", "Order")/{{Item.OrderId}}" ,i class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">add</i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="clearfix">
+            <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+            <ul class="pagination">
+                <li class="page-item disabled"><a href="#">Previous</a></li>
+                <li class="page-item"><a href="#" class="page-link">1</a></li>
+                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                <li class="page-item"><a href="#" class="page-link">4</a></li>
+                <li class="page-item"><a href="#" class="page-link">5</a></li>
+                <li class="page-item"><a href="#" class="page-link">Next</a></li>
+            </ul>
         </div>
-    </form>
-
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <td>
-                    <a href="#" ng-click="sortType = 'ItemName'; sortReverse = !sortReverse">
-                        Item Name
-                        <span ng-show="sortType == 'Item Name' && !sortReverse" class="fa fa-caret-down"></span>
-                        <span ng-show="sortType == 'Item Name' && sortReverse" class="fa fa-caret-up"></span>
-                    </a>
-                </td>
-                <td>
-                    <a href="#" ng-click="sortType = 'Quantity'; sortReverse = !sortReverse">
-                        Quantity
-                        <span ng-show="sortType == 'Quantity' && !sortReverse" class="fa fa-caret-down"></span>
-                        <span ng-show="sortType == 'Quantity' && sortReverse" class="fa fa-caret-up"></span>
-                    </a>
-                </td>
-                <td>
-                    <a href="#" ng-click="sortType = 'ItemPartNumber'; sortReverse = !sortReverse">
-                        Item Part Number
-                        <span ng-show="sortType == 'Item Part Number' && !sortReverse" class="fa fa-caret-down"></span>
-                        <span ng-show="sortType == 'Item Part Number' && sortReverse" class="fa fa-caret-up"></span>
-                    </a>
-                </td>
-    
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr ng-repeat="item in items | orderBy:sortType:sortReverse | filter:searchInventory">
-                <td>{{item.ItemName}}</td>
-                <td>{{item.Quantity}}</td>
-                <td>{{item.ItemPartNumber }}</td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ })|
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })|
-                    @Html.ActionLink("Delete", "DeleteInventoryItem", new { /* id=item.PrimaryKey */ })|
-                </td>
-            </tr>
-        </tbody>
-
-    </table>
-
-    <p class="text-center text-muted">
-        <a href="#" target="_blank">Read the Tutorial</a>
-    </p>
-
-    <p class="text-center">
-        by <a href="https://scotch.io" target="_blank">scotch.io</a>
-    </p>
-
-</div>
+    </div>
 @section scripts
     {
     <script src="~/Scripts/angular.js"></script>
@@ -102,5 +100,51 @@
             };
         });
     </script>
-
 }
+<style>
+    .pagination {
+        float: right;
+        margin: 0 0 5px;
+    }
+
+        .pagination li a {
+            border: none;
+            font-size: 13px;
+            min-width: 30px;
+            min-height: 30px;
+            color: #999;
+            margin: 0 2px;
+            line-height: 30px;
+            border-radius: 2px !important;
+            text-align: center;
+            padding: 0 6px;
+        }
+
+            .pagination li a:hover {
+                color: #666;
+            }
+
+        .pagination li.active a, .pagination li.active a.page-link {
+            background: #03A9F4;
+        }
+
+            .pagination li.active a:hover {
+                background: #0397d6;
+            }
+
+        .pagination li.disabled i {
+            color: #ccc;
+        }
+
+        .pagination li i {
+            font-size: 16px;
+            padding-top: 6px
+        }
+
+    .hint-text {
+        float: left;
+        margin-top: 10px;
+        font-size: 13px;
+    }
+</style>
+
