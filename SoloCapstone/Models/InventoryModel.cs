@@ -13,10 +13,6 @@ namespace SoloCapstone.Models
         public int Quantity { get; set; }
         public string ItemPartNumber { get; set; }
         public string Description { get; set; }
-    }
-    enum ItemStatus
-    {
-        OnOrder,
-        InStock
+        public string OrderStatus { get; set; }
     }
 }
