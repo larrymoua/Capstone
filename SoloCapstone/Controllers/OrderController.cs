@@ -79,22 +79,24 @@ namespace SoloCapstone.Controllers
         // GET: Order/Create
         public ActionResult Create()
         {
-            return View();
+            Order newOrder = new Order();
+            return View(newOrder);
         }
 
         // POST: Order/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Order newOrder)
         {
             try
             {
-                // TODO: Add insert logic here
+                db.orders.Add(newOrder);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index");
             }
         }
 
@@ -137,22 +139,25 @@ namespace SoloCapstone.Controllers
         // GET: Order/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var findOrder = db.orders.Where(i => i.OrderId ==id).Single();
+            return View(findOrder);
         }
 
         // POST: Order/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, Order order)
         {
+            var findOrder = db.orders.Where(i => i.OrderId == id).Single();
             try
             {
-                // TODO: Add delete logic here
+                db.orders.Remove(findOrder);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index");
             }
         }
         public ActionResult ShowInventory()
