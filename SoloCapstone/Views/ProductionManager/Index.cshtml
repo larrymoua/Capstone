@@ -3,21 +3,64 @@
     Layout = "~/Views/Shared/_LayoutLogIn.cshtml";
 }
 
-
-
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/highcharts-more.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
 
 <div id="container"></div>
+<div id="container2"></div>
 <style>
     #container {
         min-width: 320px;
         max-width: 600px;
         margin: 0 auto;
     }
+    #container2 {
+        min-width: 320px;
+        max-width: 600px;
+        margin: 0 auto;
+    }
 </style>
+<div>
+    <table id="datatable"  align="center">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Goal </th>
+                <th>Actual</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Monday</th>
+                <td>3</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <th>Tuesday</th>
+                <td>2</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <th>Wednesday</th>
+                <td>5</td>
+                <td>11</td>
+            </tr>
+            <tr>
+                <th>Thursday</th>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <th>Friday</th>
+                <td>2</td>
+                <td>4</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
 <script>
     var chart = Highcharts.chart('container', {
 
@@ -40,6 +83,29 @@
             showInLegend: false
         }]
 
+    });
+    var dataChart = Highcharts.chart('container2', {
+        data: {
+            table: 'datatable'
+        },
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Current Week Goals'
+        },
+        yAxis: {
+            allowDecimals: false,
+            title: {
+                text: 'Units'
+            }
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.series.name + '</b><br/>' +
+                    this.point.y + ' ' + this.point.name.toLowerCase();
+            }
+        }
     });
 </script>
 

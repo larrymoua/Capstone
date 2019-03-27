@@ -6,9 +6,43 @@
     <title>@ViewBag.LogIn - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>﻿
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li><h2>Stallion<b>WARE</b></h2></li>
+                <li><a href="#">My Profile</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </div>
+
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <a href="#" id="menu-toggle"><i class="material-icons">list</i></a>
+                        @RenderBody()
+                        <div class="container body-content">
+                            <hr />
+                            <footer>
+                                <p>
+                                    &copy; @DateTime.Now.Year -CapStone
+                                </p>
+
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -19,54 +53,148 @@
                 </button>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li> <img src="~/images/jumping-horse-in-a-shield.png" width="60" height="50" alt="logos"></li>
-                    <li>@Html.ActionLink("Home", "Index", "ProductionManager")</li>
-                    <li>@Html.ActionLink("Orders", "Index", "Order")</li>
-                    <li>@Html.ActionLink("Inventory", "ShowInventory", "Order")</li>
-                    <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-facebook"></i></a></li>
-                    <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-twitter"></i></a></li>
-                    <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-google-plus"></i></a></li>
-                    <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-pinterest-p"></i></a></li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+                <nav class="circle">
+                    <ul class="nav navbar-nav">
+                        <li> <img src="~/images/jumping-horse-in-a-shield.png" width="60" height="50" alt="logos"></li>
+                        <li>@Html.ActionLink("Analytics", "Index", "ProductionManager")</li>
+                        <li>@Html.ActionLink("Orders", "Index", "Order")</li>
+                        <li>@Html.ActionLink("Inventory", "ShowInventory", "Order")</li>
+                        <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-facebook"></i></a></li>
+                        <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-twitter"></i></a></li>
+                        <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-google-plus"></i></a></li>
+                        <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-pinterest-p"></i></a></li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </nav>
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year -CapStone</p>
-        </footer>
-    </div>
-    <div class="container">
-        <div class="box rotate"></div>
-    </div>
-    <style>
-        .box {
-            margin: 50px auto;
-            background: #5FCF80;
-            width: 150px;
-            height: 150px;
-        }
 
-            .box:hover {
-                transform: rotate(360deg);
-                background: #9351A6;
-                border-radius: 50%;
-            }
-
-        .rotate {
-            transition: all 0.5s ease-in-out;
-        }
-
-            .rotate:hover {
-                transition: all 1s ease-in-out;
-            }
-    </style>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("menuDisplayed");
+        });
+    </script>
+    <style>
+        #sidebar-wrapper {
+            z-index: 1;
+            position: absolute;
+            width: 0;
+            height: 100%;
+            overflow-y: hidden;
+            background: #808080;
+        }
+
+        #page-content-wrapper {
+            width: 100%;
+            position: absolute;
+            padding: 15px;
+        }
+
+        #wrapper.menuDisplayed #sidebar-wrapper {
+            width: 250px;
+        }
+
+        #wrapper.menuDisplayed #page-content-wrapper {
+            padding-left: 250px;
+        }
+
+        .sidebar-nav {
+            padding: 0;
+            list-style: none;
+        }
+
+            .sidebar-nav li {
+                text-indent: 20px;
+                line-height: 40px;
+            }
+
+            .sidebar-nav li a {
+                display: block;
+                text-decoration:none;
+                color: #ddd;
+            }
+                .sidebar-nav li a:hover {
+                    background: #0e8cbd;
+                }
+    </style>
+    <style>
+        nav.circle ul li a {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+            nav.circle ul li a:after {
+                display: block;
+                position: absolute;
+                margin: 0;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                content: '.';
+                color: transparent;
+                width: 1px;
+                height: 1px;
+                border-radius: 50%;
+                background: transparent;
+            }
+
+            nav.circle ul li a:hover:after {
+                -webkit-animation: circle 1.5s ease-in forwards;
+            }
+
+        @@-webkit-keyframes fill {
+            0% {
+                width: 0%;
+                height: 1px;
+            }
+
+            50% {
+                width: 100%;
+                height: 1px;
+            }
+
+            100% {
+                width: 100%;
+                height: 100%;
+                background: #333;
+            }
+        }
+
+        /* Keyframes */
+        @@-webkit-keyframes circle {
+            0% {
+                width: 1px;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                margin: auto;
+                height: 1px;
+                z-index: -1;
+                background: #eee;
+                border-radius: 100%;
+            }
+
+            100% {
+                background: #aaa;
+                height: 5000%;
+                width: 5000%;
+                z-index: -1;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+                border-radius: 0;
+            }
+        }
+    </style>
 </body>
 </html>
