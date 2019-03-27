@@ -68,6 +68,18 @@ namespace SoloCapstone.Controllers
             }
             return View(foundOrder);
         }
+        public ActionResult InventoryItemDetails(string id)
+        {
+            using (var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate }))
+            {
+                client.BaseAddress = new Uri("http://localhost:52290/api/Inventory/");
+                HttpResponseMessage response = client.GetAsync($"{id}").Result;
+                response.EnsureSuccessStatusCode();
+                var result = response.Content.ReadAsStringAsync().Result;
+                InventoryModel inventory = JsonConvert.DeserializeObject<InventoryModel>(result);
+                return View(inventory);
+            }    
+        }
         public ActionResult OrderMaterials(int id)
         {
             var foundOrder = db.orders.Find(id);
@@ -231,5 +243,6 @@ namespace SoloCapstone.Controllers
                 return RedirectToAction("ShowInventory");
             }
         }
+
     }
 }
