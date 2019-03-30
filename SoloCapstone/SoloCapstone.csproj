@@ -1117,6 +1117,7 @@
     <Content Include="Views\Order\Create.cshtml" />
     <Content Include="Views\Order\InventoryItemDetails.cshtml" />
     <Content Include="Views\Order\OrderMaterials.cshtml" />
+    <Content Include="Views\Order\CreateCoaxialCable.cshtml" />
     <None Include="Views\Shared\_LayoutLogIn.cshtml" />
   </ItemGroup>
   <ItemGroup>

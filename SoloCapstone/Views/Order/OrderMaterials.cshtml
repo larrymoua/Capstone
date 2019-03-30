@@ -1,11 +1,15 @@
 ﻿@model IEnumerable<SoloCapstone.Models.CoaxialCable>
 
 @{
-    ViewBag.Title = "OrderMaterials";
+    Layout = "~/Views/Shared/_LayoutLogIn.cshtml";
 }
 
-<h2>Order Materials</h2>
 
+<h2>Order Materials</h2>
+<p>
+
+    @Html.ActionLink("Add Product", "CreateCoaxialCable", new { orderId = @ViewContext.RouteData.Values["id"] })
+</p>
 <table class="table">
     <tr>
         <th>
@@ -51,7 +55,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.HeatShrinkQuantity)
             </td>
-
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.PartId }) |
                 @Html.ActionLink("Details", "Details", new { id = item.PartId }) |
@@ -59,6 +62,6 @@
             </td>
         </tr>
     }
-
 </table>
+
 @Html.ActionLink("Back to List", "Index")

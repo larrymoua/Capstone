@@ -66,6 +66,7 @@ namespace SoloCapstone.Controllers
             {
                 ViewBag.OrderStatus = "100";
             }
+            ViewBag.OrderId = foundOrder.OrderId;
             return View(foundOrder);
         }
         public ActionResult InventoryItemDetails(string id)
@@ -111,27 +112,26 @@ namespace SoloCapstone.Controllers
                 return RedirectToAction("Index");
             }
         }
-        public ActionResult CreateCoaxialCable()
+        public ActionResult CreateCoaxialCable(int orderId)
         {
-            CoaxialCable newOrder = new CoaxialCable();
-
-            return View(newOrder);
+            CoaxialCable coaxialCable = new CoaxialCable();
+            coaxialCable.OrderId = orderId;
+            return View(coaxialCable);
         }
         // POST: Order/Create
         [HttpPost]
         public ActionResult CreateCoaxialCable(CoaxialCable coaxialCable)
         {
-
             try
             {
                 db.products.Add(coaxialCable);
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("OrderMaterials", "Order", new { id = coaxialCable.OrderId });
             }
             catch
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("OrderMaterials", "Order", new { id = coaxialCable.OrderId });
             }
         }
 

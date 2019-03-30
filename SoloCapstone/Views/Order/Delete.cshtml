@@ -1,7 +1,7 @@
 ﻿@model SoloCapstone.Models.Order
 
 @{
-    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutLogIn.cshtml";
 }
 
 <h2>Delete</h2>
@@ -45,7 +45,8 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
