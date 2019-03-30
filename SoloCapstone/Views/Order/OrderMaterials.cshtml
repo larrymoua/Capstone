@@ -26,9 +26,7 @@
         <th>
             @Html.DisplayNameFor(model => model.HeatShrinkQuantity)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OrderId)
-        </th>
+
         <th></th>
     </tr>
 
@@ -53,9 +51,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.HeatShrinkQuantity)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderId)
-            </td>
+
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.PartId }) |
                 @Html.ActionLink("Details", "Details", new { id = item.PartId }) |

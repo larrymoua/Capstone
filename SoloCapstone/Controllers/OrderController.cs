@@ -92,10 +92,8 @@ namespace SoloCapstone.Controllers
         public ActionResult Create()
         {
             Order newOrder = new Order();
-            newOrder.CurrentlyWorkingOn = "tom";
             return View(newOrder);
         }
-
         // POST: Order/Create
         [HttpPost]
         public ActionResult Create(Order newOrder)
@@ -104,6 +102,29 @@ namespace SoloCapstone.Controllers
             try
             {
                 db.orders.Add(newOrder);
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+            }
+        }
+        public ActionResult CreateCoaxialCable()
+        {
+            CoaxialCable newOrder = new CoaxialCable();
+
+            return View(newOrder);
+        }
+        // POST: Order/Create
+        [HttpPost]
+        public ActionResult CreateCoaxialCable(CoaxialCable coaxialCable)
+        {
+
+            try
+            {
+                db.products.Add(coaxialCable);
                 db.SaveChanges();
 
                 return RedirectToAction("Index");
