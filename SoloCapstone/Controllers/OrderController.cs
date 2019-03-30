@@ -12,7 +12,7 @@ using System.Xml.Linq;
 using System.Net.Http.Formatting;
 using System.Data;
 using System.Data.Entity;
-
+using System.IO;
 
 namespace SoloCapstone.Controllers
 {
@@ -83,7 +83,7 @@ namespace SoloCapstone.Controllers
         public ActionResult OrderMaterials(int id)
         {
             var foundOrder = db.orders.Find(id);
-            var Product = foundOrder.coaxialCables.Select(c => c).ToList();
+            var Product = db.products.Where(c => c.OrderId == foundOrder.OrderId).ToList();
 
             return View(Product);
         }
@@ -92,6 +92,7 @@ namespace SoloCapstone.Controllers
         public ActionResult Create()
         {
             Order newOrder = new Order();
+            newOrder.CurrentlyWorkingOn = "tom";
             return View(newOrder);
         }
 
@@ -99,6 +100,7 @@ namespace SoloCapstone.Controllers
         [HttpPost]
         public ActionResult Create(Order newOrder)
         {
+
             try
             {
                 db.orders.Add(newOrder);
@@ -187,37 +189,44 @@ namespace SoloCapstone.Controllers
             }
             return View(inventories);
         }
-        public ActionResult DeleteInventoryItem()
+        public ActionResult DeleteInventoryItem(string partNumber)
         {
 
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:52290/");
-                var response = client.DeleteAsync("api/Inventory/");
+                var response = client.DeleteAsync($"api/Inventory/{partNumber}");
             }
             return View("ShowInventory");
         }
         public ActionResult CreateInventoryItem()
         {
             InventoryModel model = new InventoryModel(); 
-            return View("CreateInventoryItem", model);
+            return View(model);
         }
         [HttpPost]
         public ActionResult CreateInventoryItem(InventoryModel inventory)
         {
-            try
-            {
-                using (var client = new HttpClient())
+                string fileName = Path.GetFileNameWithoutExtension(inventory.ImageFile.FileName);
+                string extension = Path.GetExtension(inventory.ImageFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                inventory.ImagePath = "~/Image/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
+                inventory.ImageFile.SaveAs(fileName);
+
+                 using (HttpClient client = new HttpClient())
                 {
+                    inventory.ImageFile = null;
                     client.BaseAddress = new Uri("http://localhost:52290/");
                     var response = client.PostAsJsonAsync("api/Inventory/", inventory).Result;
+                    Image image = new Image { ImagePath = inventory.ImagePath, ItemName = inventory.ItemName };
+                    db.Images.Add(image);
+                    db.SaveChanges();
+                    ModelState.Clear();
                     return RedirectToAction("ShowInventory");
+
                 }
-            }
-            catch (Exception)
-            {
-                return RedirectToAction("ShowInventory");
-            }
+       
 
 
         }

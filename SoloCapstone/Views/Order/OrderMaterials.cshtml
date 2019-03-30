@@ -1,66 +1,68 @@
-﻿@model SoloCapstone.Models.CoaxialCable
+﻿@model IEnumerable<SoloCapstone.Models.CoaxialCable>
 
 @{
     ViewBag.Title = "OrderMaterials";
 }
 
-<h2>OrderMaterials</h2>
+<h2>Order Materials</h2>
 
-<div>
-    <h4>CoaxialCable</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
+<table class="table">
+    <tr>
+        <th>
             @Html.DisplayNameFor(model => model.PartName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PartName)
-        </dd>
-
-        <dt>
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.AWG)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AWG)
-        </dd>
-
-        <dt>
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Impedance)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Impedance)
-        </dd>
-
-        <dt>
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.CableQuantity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CableQuantity)
-        </dd>
-
-        <dt>
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.ConnecterQuantity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ConnecterQuantity)
-        </dd>
-
-        <dt>
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.HeatShrinkQuantity)
-        </dt>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderId)
+        </th>
+        <th></th>
+    </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.HeatShrinkQuantity)
-        </dd>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PartName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AWG)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Impedance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CableQuantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConnecterQuantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeatShrinkQuantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.PartId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.PartId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.PartId })
+            </td>
+        </tr>
+    }
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PartId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+</table>
+@Html.ActionLink("Back to List", "Index")

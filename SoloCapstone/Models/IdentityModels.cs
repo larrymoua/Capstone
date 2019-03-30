@@ -34,5 +34,6 @@ namespace SoloCapstone.Models
         public DbSet<Order> orders { get; set; }
         public DbSet<CoaxialCable> products {get; set;}
         public DbSet<PurchasingManager> PurchasingManagers { get; set; }
+        public DbSet<Image> Images { get; set; }
     }
 }

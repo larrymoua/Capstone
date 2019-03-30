@@ -239,10 +239,15 @@
     <Compile Include="Migrations\201903221955599_updaters.Designer.cs">
       <DependentUpon>201903221955599_updaters.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903281912213_updater.cs" />
+    <Compile Include="Migrations\201903281912213_updater.Designer.cs">
+      <DependentUpon>201903281912213_updater.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\InventoryModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
@@ -1105,17 +1110,18 @@
     <Content Include="Views\Order\Details.cshtml" />
     <Content Include="Views\Order\Edit.cshtml" />
     <Content Include="Views\ProductionManager\Index.cshtml" />
-    <Content Include="Views\Order\OrderMaterials.cshtml" />
     <Content Include="Views\Order\ShowInventory.cshtml" />
     <Content Include="Views\Order\CreateInventoryItem.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Order\Delete.cshtml" />
     <Content Include="Views\Order\Create.cshtml" />
     <Content Include="Views\Order\InventoryItemDetails.cshtml" />
+    <Content Include="Views\Order\OrderMaterials.cshtml" />
     <None Include="Views\Shared\_LayoutLogIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Image\" />
     <Folder Include="Views\Sms\" />
   </ItemGroup>
   <ItemGroup>
@@ -1140,6 +1146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903221955599_updaters.resx">
       <DependentUpon>201903221955599_updaters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903281912213_updater.resx">
+      <DependentUpon>201903281912213_updater.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
