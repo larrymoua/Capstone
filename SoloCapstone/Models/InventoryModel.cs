@@ -15,6 +15,8 @@ namespace SoloCapstone.Models
         public string ItemPartNumber { get; set; }
         public string Description { get; set; }
         public string OrderStatus { get; set; }
+        [Display(Name = "Market Value")]
+        public int MarketValue { get; set; }
         public int ImageId { get; set; }
         [DisplayName("Upload File")]
         public string ImagePath { get; set; }

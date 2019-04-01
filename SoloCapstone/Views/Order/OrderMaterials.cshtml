@@ -54,11 +54,11 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.HeatShrinkQuantity)
+                @Html.HiddenFor(modelItem => item.OrderId)
             </td>
             <td>
-                @Html.ActionLink("Edit", "EditProduct", new { id = item.PartId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.PartId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.PartId })
+                @Html.ActionLink("Edit", "EditProduct", new { id = item.PartId , orderId  = item.OrderId}) |
+                @Html.ActionLink("Delete", "DeleteProduct", new { id = item.PartId })
             </td>
         </tr>
     }

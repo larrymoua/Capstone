@@ -43,7 +43,13 @@
                             <span ng-show="sortType == 'Item Part Number' && sortReverse" class="fa fa-caret-up"></span>
                         </a>
                     </td>
-
+                    <td>
+                        <a href="#" ng-click="sortType = 'OrderStatus'; sortReverse = !sortReverse">
+                            Order Status
+                            <span ng-show="sortType == 'Order Status' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'Order Status' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </td>
                 </tr>
             </thead>
 
@@ -57,7 +63,7 @@
                         <a data-ng-href="@Url.Action("EditInventoryItem", "Order")/{{item.ItemPartNumber}}" ,i class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                         <a data-ng-href="@Url.Action("DeleteInventoryItem", "Order")/{{item.ItemPartNumber}}" , class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         <a data-ng-href="@Url.Action("InventoryItemDetails", "Order")/{{item.ItemPartNumber}}" , class="details" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Details">more_horiz</i></a>
-                        <a data-ng-href="@Url.Action("CreateInventoryItem", "Order")/{{Item.OrderId}}" ,i class="add" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">add</i></a>
+                        
                     </td>
                 </tr>
             </tbody>

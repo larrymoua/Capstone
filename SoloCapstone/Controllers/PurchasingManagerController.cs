@@ -45,7 +45,7 @@ namespace SoloCapstone.Controllers
                 db.PurchasingManagers.Add(createPurchasingManager);
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Order");
             }
             catch
             {

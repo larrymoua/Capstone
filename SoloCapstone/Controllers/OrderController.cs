@@ -39,7 +39,7 @@ namespace SoloCapstone.Controllers
         {
             IList<InventoryModel> inventories = new List<InventoryModel>();
 
-            using (var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate }))
+            using (HttpClient client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate }))
             {
                 client.BaseAddress = new Uri("http://localhost:52290/api/Inventory/");
                 HttpResponseMessage response = client.GetAsync("").Result;
@@ -127,7 +127,15 @@ namespace SoloCapstone.Controllers
             {
                 db.products.Add(coaxialCable);
                 db.SaveChanges();
-                
+                RemoveInventory removeInventory = new RemoveInventory() { CableQuantity = coaxialCable.CableQuantity, ConnecterQuantity = coaxialCable.ConnecterQuantity, HeatShrinkQuantity = coaxialCable.HeatShrinkQuantity };
+                using (var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate }))
+                {
+                    client.BaseAddress = new Uri("http://localhost:52290/api/RemoveInventory/");
+                    var response = client.PutAsJsonAsync(client.BaseAddress, removeInventory).Result;
+
+             
+
+                }
                 return RedirectToAction("OrderMaterials", "Order", new { id = coaxialCable.OrderId });
             }
             catch
@@ -282,16 +290,31 @@ namespace SoloCapstone.Controllers
             fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
             inventoryModel.ImageFile.SaveAs(fileName);
             inventoryModel.ImageFile = null;
+
             try
             {
-                using (var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate }))
+                using (var clienst = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate }))
                 {
-                    client.BaseAddress = new Uri("http://localhost:52290/api/Inventory/");
-                    HttpResponseMessage response = client.PutAsJsonAsync(client.BaseAddress, inventoryModel).Result;
-
-                    return RedirectToAction("ShowInventory");
+                    clienst.BaseAddress = new Uri("http://localhost:52290/api/Inventory/");
+                    HttpResponseMessage responses = clienst.GetAsync($"{inventoryModel.ItemPartNumber}").Result;
+                    responses.EnsureSuccessStatusCode();
+                    var result = responses.Content.ReadAsStringAsync().Result;
+                    InventoryModel inventory = JsonConvert.DeserializeObject<InventoryModel>(result);
+                    ViewBag.Quantity = inventory.Quantity;
 
                 }
+                    using (var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate }))
+                    {
+                        client.BaseAddress = new Uri("http://localhost:52290/api/Inventory/");
+                        HttpResponseMessage response = client.PutAsJsonAsync(client.BaseAddress, inventoryModel).Result;
+                        if (inventoryModel.Quantity > ViewBag.Quantity)
+                        {
+                            return RedirectToAction("Sendsms", "sms", new { InventoryStockedName = inventoryModel.ItemName });
+                        }
+                        return RedirectToAction("ShowInventory");
+
+                    }
+              
             }
             catch
             {
@@ -318,9 +341,6 @@ namespace SoloCapstone.Controllers
                 findProduct.HeatShrinkQuantity = coaxialCable.HeatShrinkQuantity;
                 findProduct.Impedance = coaxialCable.Impedance;
                 findProduct.PartName = coaxialCable.PartName;
-                findProduct.CableQuantity = coaxialCable.ConnecterQuantity;
-                findProduct.AWG = coaxialCable.AWG;
-                findProduct.ConnecterQuantity = coaxialCable.ConnecterQuantity;
 
                 db.SaveChanges();
 
@@ -329,6 +349,27 @@ namespace SoloCapstone.Controllers
             catch
             {
                 return RedirectToAction("OrderMaterials", "Order", new { id = findProduct.OrderId });
+            }
+        }
+        public ActionResult DeleteProduct(int id)
+        {
+            var findproduct = db.products.Where(i => i.PartId == id).Single();
+            return View(findproduct);
+        }
+        [HttpPost]
+        public ActionResult DeleteProduct(int id, CoaxialCable coaxial)
+        {
+            var coaxialCable = db.products.Where(i => i.PartId == id).Single();
+            try
+            {
+                db.products.Remove(coaxialCable);
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
             }
         }
     }

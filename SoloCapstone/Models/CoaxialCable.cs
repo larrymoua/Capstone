@@ -15,9 +15,9 @@ namespace SoloCapstone.Models
         public int AWG { get; set; }
         public string Impedance { get; set; }
         public ProductStatus status { get; set; }
-        public double CableQuantity { get; set; }
-        public double ConnecterQuantity { get; set; }
-        public double HeatShrinkQuantity { get; set; }
+        public int CableQuantity { get; set; }
+        public int ConnecterQuantity { get; set; }
+        public int HeatShrinkQuantity { get; set; }
         public int OrderId { get; set; }
         [ForeignKey("OrderId")]
      

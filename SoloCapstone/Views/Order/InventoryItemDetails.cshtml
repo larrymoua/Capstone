@@ -47,8 +47,18 @@
         <dd>
             @Html.DisplayFor(model => model.OrderStatus)
         </dd>
+        @if (!User.IsInRole("PurchasingMananger"))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.MarketValue)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MarketValue)
+            </dd>
+        }
         <dt>
-  
+
         </dt>
 
         <dd>
