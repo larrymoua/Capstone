@@ -1,10 +1,17 @@
-﻿@{
+﻿@if (!User.IsInRole("Employee") || User.IsInRole("ProductionManager") || User.IsInRole("ProductionManager"))
+{
+
+    Layout = "~/Views/Shared/_LayoutLogIn.cshtml";
+
+}
+
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="jumbotron">
-    <h1><img src="~/images/cooltext318846653679449.png" width="150" height="100" alt="logos"class="center"></h1>
-    <div><img src="~/images/20190321_160259.jpg" width="1000" height="300" alt="logos"></div> 
+    <h1><img src="~/images/cooltext318846653679449.png" width="150" height="100" alt="logos" class="center"></h1>
+    <div><img src="~/images/20190321_160259.jpg" width="1000" height="300" alt="logos"></div>
 </div>
 <style>
     .center {

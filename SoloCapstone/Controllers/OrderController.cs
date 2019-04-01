@@ -127,7 +127,7 @@ namespace SoloCapstone.Controllers
             {
                 db.products.Add(coaxialCable);
                 db.SaveChanges();
-
+                
                 return RedirectToAction("OrderMaterials", "Order", new { id = coaxialCable.OrderId });
             }
             catch
@@ -214,11 +214,17 @@ namespace SoloCapstone.Controllers
         public ActionResult DeleteInventoryItem(string id)
         {
 
-            using (var client = new HttpClient())
+            using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:52290/api/Inventory/");
-                var response = client.DeleteAsync($"{id}");
+               var response = client.DeleteAsync($"{id}").Result;
+        
+                response.EnsureSuccessStatusCode();
             }
+            Image image = db.Images.Where(i => i.ItemName == id).SingleOrDefault();
+            db.Images.Remove(image);
+            db.SaveChanges();
+
             return RedirectToAction("ShowInventory");
         }
         public ActionResult CreateInventoryItem()
@@ -275,24 +281,25 @@ namespace SoloCapstone.Controllers
             inventoryModel.ImagePath = "~/Image/" + fileName;
             fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
             inventoryModel.ImageFile.SaveAs(fileName);
+            inventoryModel.ImageFile = null;
             try
             {
                 using (var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate }))
                 {
                     client.BaseAddress = new Uri("http://localhost:52290/api/Inventory/");
-                    using (HttpResponseMessage response = client.PutAsJsonAsync(client.BaseAddress, inventoryModel).Result)
-                    {
-                        
-                    }
+                    HttpResponseMessage response = client.PutAsJsonAsync(client.BaseAddress, inventoryModel).Result;
+
                     return RedirectToAction("ShowInventory");
 
                 }
-
             }
             catch
             {
                 return RedirectToAction("ShowInventory");
             }
+  
+
+
         }
         public ActionResult EditProduct(int id)
         {

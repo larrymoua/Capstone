@@ -52,6 +52,7 @@
                     <td>{{item.ItemName}}</td>
                     <td>{{item.Quantity}}</td>
                     <td>{{item.ItemPartNumber}}</td>
+                    <td>{{item.OrderStatus}}</td>
                     <td>
                         <a data-ng-href="@Url.Action("EditInventoryItem", "Order")/{{item.ItemPartNumber}}" ,i class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                         <a data-ng-href="@Url.Action("DeleteInventoryItem", "Order")/{{item.ItemPartNumber}}" , class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>

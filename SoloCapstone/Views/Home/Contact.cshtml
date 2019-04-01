@@ -1,4 +1,11 @@
-﻿@{
+﻿@if (!User.IsInRole("Employee") || User.IsInRole("ProductionManager") || User.IsInRole("ProductionManager"))
+{
+
+    Layout = "~/Views/Shared/_LayoutLogIn.cshtml";
+
+}
+
+@{
     ViewBag.Title = "Contact";
 }
 <h2>@ViewBag.Title.</h2>
