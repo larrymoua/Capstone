@@ -52,7 +52,10 @@
         </dt>
 
         <dd>
-            <img src= "@Url.Content(Model.ImagePath)"width="250" height="250" />
+            @if (Model.ImagePath != null)
+            {
+                <img src="@Url.Content(Model.ImagePath)" width="250" height="250" />
+            }
         </dd>
     </dl>
 </div>

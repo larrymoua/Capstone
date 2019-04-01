@@ -13,6 +13,7 @@ using System.Net.Http.Formatting;
 using System.Data;
 using System.Data.Entity;
 using System.IO;
+using System.Text;
 
 namespace SoloCapstone.Controllers
 {
@@ -167,7 +168,7 @@ namespace SoloCapstone.Controllers
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index");
             }
         }
 
@@ -210,15 +211,15 @@ namespace SoloCapstone.Controllers
             }
             return View(inventories);
         }
-        public ActionResult DeleteInventoryItem(string partNumber)
+        public ActionResult DeleteInventoryItem(string id)
         {
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:52290/");
-                var response = client.DeleteAsync($"api/Inventory/{partNumber}");
+                client.BaseAddress = new Uri("http://localhost:52290/api/Inventory/");
+                var response = client.DeleteAsync($"{id}");
             }
-            return View("ShowInventory");
+            return RedirectToAction("ShowInventory");
         }
         public ActionResult CreateInventoryItem()
         {
@@ -251,28 +252,77 @@ namespace SoloCapstone.Controllers
 
 
         }
-        public ActionResult EditInventoryItem(string itemPartNumber)
+        public ActionResult EditInventoryItem(string id)
         {
-            InventoryModel inventoryModel = new InventoryModel { ItemPartNumber = itemPartNumber };
-            return View(inventoryModel);
+            using (var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate }))
+            {
+                client.BaseAddress = new Uri("http://localhost:52290/api/Inventory/");
+                HttpResponseMessage response = client.GetAsync($"{id}").Result;
+                response.EnsureSuccessStatusCode();
+                var result = response.Content.ReadAsStringAsync().Result;
+                var inventoryModel = JsonConvert.DeserializeObject<InventoryModel>(result);
+                return View(inventoryModel);
+            }
+     
         }
-
         // POST: Order/Edit/5
         [HttpPost]
         public ActionResult EditInventoryItem(InventoryModel inventoryModel)
         {
-
+            string fileName = Path.GetFileNameWithoutExtension(inventoryModel.ImageFile.FileName);
+            string extension = Path.GetExtension(inventoryModel.ImageFile.FileName);
+            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+            inventoryModel.ImagePath = "~/Image/" + fileName;
+            fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
+            inventoryModel.ImageFile.SaveAs(fileName);
             try
             {
-  
+                using (var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate }))
+                {
+                    client.BaseAddress = new Uri("http://localhost:52290/api/Inventory/");
+                    using (HttpResponseMessage response = client.PutAsJsonAsync(client.BaseAddress, inventoryModel).Result)
+                    {
+                        
+                    }
+                    return RedirectToAction("ShowInventory");
 
-                return RedirectToAction("ShowInventory");
+                }
+
             }
             catch
             {
                 return RedirectToAction("ShowInventory");
             }
         }
+        public ActionResult EditProduct(int id)
+        {
+            var foundProduct = db.products.Find(id);
+            return View(foundProduct);
+        }
 
+        // POST: Order/Edit/5
+        [HttpPost]
+        public ActionResult EditProduct(CoaxialCable coaxialCable)
+        {
+            var findProduct = db.products.Where(p => p.PartId == coaxialCable.PartId).SingleOrDefault();
+            try
+            {
+             
+                findProduct.HeatShrinkQuantity = coaxialCable.HeatShrinkQuantity;
+                findProduct.Impedance = coaxialCable.Impedance;
+                findProduct.PartName = coaxialCable.PartName;
+                findProduct.CableQuantity = coaxialCable.ConnecterQuantity;
+                findProduct.AWG = coaxialCable.AWG;
+                findProduct.ConnecterQuantity = coaxialCable.ConnecterQuantity;
+
+                db.SaveChanges();
+
+                return RedirectToAction("OrderMaterials", "Order", new { id = findProduct.OrderId });
+            }
+            catch
+            {
+                return RedirectToAction("OrderMaterials", "Order", new { id = findProduct.OrderId });
+            }
+        }
     }
 }

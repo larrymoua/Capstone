@@ -51,9 +51,9 @@
                 <tr ng-repeat="item in items | orderBy:sortType:sortReverse | filter:searchInventory">
                     <td>{{item.ItemName}}</td>
                     <td>{{item.Quantity}}</td>
-                    <td>{{item.ItemPartNumber }}</td>
+                    <td>{{item.ItemPartNumber}}</td>
                     <td>
-                        <a data-ng-href="@Url.Action("Edit", "Order")/{{item.ItemPartNumber}}" ,i class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        <a data-ng-href="@Url.Action("EditInventoryItem", "Order")/{{item.ItemPartNumber}}" ,i class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                         <a data-ng-href="@Url.Action("DeleteInventoryItem", "Order")/{{item.ItemPartNumber}}" , class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         <a data-ng-href="@Url.Action("InventoryItemDetails", "Order")/{{item.ItemPartNumber}}" , class="details" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Details">more_horiz</i></a>
                         <a data-ng-href="@Url.Action("CreateInventoryItem", "Order")/{{Item.OrderId}}" ,i class="add" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">add</i></a>

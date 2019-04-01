@@ -1118,6 +1118,8 @@
     <Content Include="Views\Order\InventoryItemDetails.cshtml" />
     <Content Include="Views\Order\OrderMaterials.cshtml" />
     <Content Include="Views\Order\CreateCoaxialCable.cshtml" />
+    <Content Include="Views\Order\EditProduct.cshtml" />
+    <Content Include="Views\Order\EditInventoryItem.cshtml" />
     <None Include="Views\Shared\_LayoutLogIn.cshtml" />
   </ItemGroup>
   <ItemGroup>

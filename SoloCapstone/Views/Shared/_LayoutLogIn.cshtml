@@ -55,21 +55,28 @@
             <div class="navbar-collapse collapse">
                 <nav class="circle">
                     <ul class="nav navbar-nav">
-                        <li> <img src="~/images/jumping-horse-in-a-shield.png" width="60" height="50" alt="logos"></li>
+                        <li><img src="~/images/jumping-horse-in-a-shield.png" width="60" height="50" alt="logos"></li>
                         <li>@Html.ActionLink("Analytics", "Index", "ProductionManager")</li>
                         <li>@Html.ActionLink("Orders", "Index", "Order")</li>
-                        <li>@Html.ActionLink("Inventory", "ShowInventory", "Order")</li>
-                        <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-facebook"></i></a></li>
-                        <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-twitter"></i></a></li>
-                        <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-google-plus"></i></a></li>
-                        <li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-pinterest-p"></i></a></li>
+                        <li>@Html.ActionLink("Inventory", "ShowInventory", "Order")</li>        
                     </ul>
                     @Html.Partial("_LoginPartial")
                 </nav>
+                <div class="topnav-centered">
+                  <h2>Stallion<b>Ware</b></h2>
+                </div>
             </div>
         </div>
     </div>
-
+    <style>
+        .topnav-centered{
+            float: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
