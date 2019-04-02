@@ -8,10 +8,12 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="jumbotron">
-    <h1><img src="~/images/cooltext318846653679449.png" width="150" height="100" alt="logos" class="center ,responsive"></h1>
-    <div class="center"><img src="~/images/20190321_160259.jpg" width="1000" height="300" alt="logos"></div>
+    <h1><img src="~/images/cooltext318846653679449.png" width="150" height="100" alt="logos" class="center"></h1>
+    <div class="responsive"><img src="~/images/20190321_160259.jpg" class="center" width="1000" height="300" alt="logos"></div>
 </div>
 <style>
     .center {
@@ -20,29 +22,16 @@
         margin-right: auto;
         width: 50%;
     }
+
     .responsive {
         width: 100%;
         height: auto;
     }
 </style>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+<div class="w3-panel w3-leftbar center">
+    <p>
+        <i class="fa fa-quote-right w3-xxlarge"></i><br>
+        <i class="w3-serif w3-xlarge"> "Opportunities don't happen. You create them."</i>
+        <i>-- Chris Grosser</i>
+    </p>
 </div>

@@ -131,11 +131,9 @@ namespace SoloCapstone.Controllers
                 using (var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate }))
                 {
                     client.BaseAddress = new Uri("http://localhost:52290/api/RemoveInventory/");
-                    var response = client.PutAsJsonAsync(client.BaseAddress, removeInventory).Result;
-
-             
-
+                    var response = client.PutAsJsonAsync(client.BaseAddress, removeInventory).Result;           
                 }
+                CheckInventoryItems();
                 return RedirectToAction("OrderMaterials", "Order", new { id = coaxialCable.OrderId });
             }
             catch
@@ -370,6 +368,30 @@ namespace SoloCapstone.Controllers
             catch
             {
                 return RedirectToAction("Index");
+            }
+        }
+        public void CheckInventoryItems()
+        {
+            IList<InventoryModel> inventories = new List<InventoryModel>();
+
+            using (HttpClient client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate }))
+            {
+                client.BaseAddress = new Uri("http://localhost:52290/api/Inventory/");
+                HttpResponseMessage response = client.GetAsync("").Result;
+                response.EnsureSuccessStatusCode();
+                var result = response.Content.ReadAsStringAsync().Result;
+                inventories = JsonConvert.DeserializeObject<List<InventoryModel>>(result);
+    
+                foreach (var item in inventories)
+                {
+                    if(item.Quantity < 10)
+                    {
+                        SmsController.LowStock(item.ItemName);
+                        
+                    }
+
+                }
+
             }
         }
     }

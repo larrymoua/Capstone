@@ -16,10 +16,10 @@ namespace SoloCapstone.Controllers
 {
     public class SmsController : TwilioController
     {
-        public ActionResult SendSms(string InventoryStockedName)
+        public  ActionResult SendSms(string InventoryStockedName)
         {
             var accountSid = "AC2a73e8f06d582d58b14ce38938725590";
-            string authToken = "7a7061e6ad35a73b65e5756024172516";
+            string authToken = "b14f742b4d68351c43d44306e6e9abf6";
             TwilioClient.Init(accountSid, authToken);
 
             var to = new PhoneNumber("14143914140");
@@ -31,10 +31,10 @@ namespace SoloCapstone.Controllers
                 body: $"{InventoryStockedName} has now been stocked!");
             return RedirectToAction("Index", "Order");
         }
-        public ActionResult LowStock(string InventoryStockedName)
+        public static void LowStock(string InventoryStockedName)
         {
             var accountSid = "AC2a73e8f06d582d58b14ce38938725590";
-            string authToken = "7a7061e6ad35a73b65e5756024172516";
+            string authToken = "b14f742b4d68351c43d44306e6e9abf6";
             TwilioClient.Init(accountSid, authToken);
 
             var to = new PhoneNumber("14143914140");
@@ -44,7 +44,6 @@ namespace SoloCapstone.Controllers
                 to: to,
                 from: from,
                 body: $"{InventoryStockedName} is low in inventory!");
-            return RedirectToAction("Index", "Order");
         }
 
 
