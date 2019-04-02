@@ -42,7 +42,13 @@
                         <span ng-show="sortType == 'Customer Name' && sortReverse" class="fa fa-caret-up"></span>
                     </a>
                 </td>
-                <td><a data-ng-href="@Url.Action("Create", "Order")" ,i class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">add</i></a></td>
+                <td>
+                    @if (User.IsInRole("ProductionManager"))
+                    {
+                        <a data-ng-href="@Url.Action("Create", "Order")" ,i class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Add">add</i></a>
+                    }
+
+                </td>
             </tr>
         </thead>
 
@@ -51,10 +57,15 @@
                 <td>{{ aOrder.DueDate| mydate | date: 'yyyy-MM-dd ' }}</td>
                 <td>{{ aOrder.OrderConfirmationNumber }}</td>
                 <td>{{ aOrder.CustomerName }}</td>
+                <td>{{ aOrder.OrderStatus }}</td>
                 <td>
                     <a data-ng-href="@Url.Action("Edit", "Order")/{{aOrder.OrderId}}" ,i class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                    <a data-ng-href="@Url.Action("Delete", "Order")/{{aOrder.OrderId}}" , class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                    <a data-ng-href="@Url.Action("Details", "Order")/{{aOrder.OrderId}}" , class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Details">more_horiz</i></a>
+                    @if (User.IsInRole("ProductionManager"))
+                    {
+                        <a data-ng-href="@Url.Action("Delete", "Order")/{{aOrder.OrderId}}" , class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        <a data-ng-href="@Url.Action("Details", "Order")/{{aOrder.OrderId}}" , class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Details">more_horiz</i></a>
+                    }
+
                 </td>
             </tr>
         </tbody>

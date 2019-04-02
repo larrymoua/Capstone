@@ -33,6 +33,7 @@ namespace SoloCapstone.Controllers
         {
             List<Order> orders = db.orders.Select(e => e).ToList();
             orders = orders.OrderBy(o => o.DueDate).ToList();
+
             return Json(orders, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetAllInventoryItems()
@@ -59,7 +60,7 @@ namespace SoloCapstone.Controllers
             {
                 ViewBag.OrderStatus = "25";
             }
-            else if (foundOrder.OrderStatus.ToString().Equals("BeingPrepared"))
+            else if (foundOrder.OrderStatus.ToString().Equals("BeingAssembled"))
             {
                 ViewBag.OrderStatus = "65";
             }
@@ -103,6 +104,7 @@ namespace SoloCapstone.Controllers
 
             try
             {
+
                 db.orders.Add(newOrder);
                 db.SaveChanges();
 
@@ -228,7 +230,11 @@ namespace SoloCapstone.Controllers
                 response.EnsureSuccessStatusCode();
             }
             Image image = db.Images.Where(i => i.ItemName == id).SingleOrDefault();
-            db.Images.Remove(image);
+            if(image != null)
+            {
+                db.Images.Remove(image);
+            }
+
             db.SaveChanges();
 
             return RedirectToAction("ShowInventory");
@@ -281,14 +287,16 @@ namespace SoloCapstone.Controllers
         [HttpPost]
         public ActionResult EditInventoryItem(InventoryModel inventoryModel)
         {
-            string fileName = Path.GetFileNameWithoutExtension(inventoryModel.ImageFile.FileName);
-            string extension = Path.GetExtension(inventoryModel.ImageFile.FileName);
-            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-            inventoryModel.ImagePath = "~/Image/" + fileName;
-            fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
-            inventoryModel.ImageFile.SaveAs(fileName);
-            inventoryModel.ImageFile = null;
-
+            if(inventoryModel.ImageFile != null)
+            {
+                string fileName = Path.GetFileNameWithoutExtension(inventoryModel.ImageFile.FileName);
+                string extension = Path.GetExtension(inventoryModel.ImageFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                inventoryModel.ImagePath = "~/Image/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
+                inventoryModel.ImageFile.SaveAs(fileName);
+                inventoryModel.ImageFile = null;
+            }
             try
             {
                 using (var clienst = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate }))

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -13,7 +14,7 @@ namespace SoloCapstone.Models
         [DataType(DataType.Date)]
         [Display(Name = "Due Date")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime DueDate {get; set; }
+        public Nullable<System.DateTime> DueDate { get; set; }
         public string OrderConfirmationNumber { get; set; }
         public string CustomerName { get; set; }
         public OrderStatus OrderStatus { get; set; }
@@ -23,8 +24,11 @@ namespace SoloCapstone.Models
     }
     public enum OrderStatus
     {
+        [Description("Order Confirmed")]
         OrderConfirmed,
-        BeingPrepared,
+        [Description("Being Assembled")]
+        BeingAssembled,
+        [Description("Shipped")]
         Shipped
 
     }

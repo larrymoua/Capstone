@@ -25361,7 +25361,7 @@ var inputType = {
        <form name="myForm" ng-controller="DateController as dateCtrl">
           <label for="exampleInput">Pick a date in 2013:</label>
           <input type="date" id="exampleInput" name="input" ng-model="example.value"
-              placeholder="yyyy-MM-dd" min="2013-01-01" max="2013-12-31" required />
+              placeholder="dd-MM-yyyy" min="01-01-2013" max="31-12-2013" required />
           <div role="alert">
             <span class="error" ng-show="myForm.input.$error.required">
                 Required!</span>

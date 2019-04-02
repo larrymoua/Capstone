@@ -211,6 +211,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddDescriptionEnum.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -246,6 +247,26 @@
     <Compile Include="Migrations\201904011952273_updater1.cs" />
     <Compile Include="Migrations\201904011952273_updater1.Designer.cs">
       <DependentUpon>201904011952273_updater1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904021641293_updater2.cs" />
+    <Compile Include="Migrations\201904021641293_updater2.Designer.cs">
+      <DependentUpon>201904021641293_updater2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904021650444_hi.cs" />
+    <Compile Include="Migrations\201904021650444_hi.Designer.cs">
+      <DependentUpon>201904021650444_hi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904021652273_hi1.cs" />
+    <Compile Include="Migrations\201904021652273_hi1.Designer.cs">
+      <DependentUpon>201904021652273_hi1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904021830446_hi2.cs" />
+    <Compile Include="Migrations\201904021830446_hi2.Designer.cs">
+      <DependentUpon>201904021830446_hi2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904021927000_hi3.cs" />
+    <Compile Include="Migrations\201904021927000_hi3.Designer.cs">
+      <DependentUpon>201904021927000_hi3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1161,6 +1182,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904011952273_updater1.resx">
       <DependentUpon>201904011952273_updater1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904021641293_updater2.resx">
+      <DependentUpon>201904021641293_updater2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904021650444_hi.resx">
+      <DependentUpon>201904021650444_hi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904021652273_hi1.resx">
+      <DependentUpon>201904021652273_hi1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904021830446_hi2.resx">
+      <DependentUpon>201904021830446_hi2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904021927000_hi3.resx">
+      <DependentUpon>201904021927000_hi3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
