@@ -57,7 +57,6 @@
                 <td>{{ aOrder.DueDate| mydate | date: 'yyyy-MM-dd ' }}</td>
                 <td>{{ aOrder.OrderConfirmationNumber }}</td>
                 <td>{{ aOrder.CustomerName }}</td>
-                <td>{{ aOrder.OrderStatus }}</td>
                 <td>
                     <a data-ng-href="@Url.Action("Edit", "Order")/{{aOrder.OrderId}}" ,i class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                     @if (User.IsInRole("ProductionManager"))
