@@ -7,27 +7,39 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/data.js"></script>
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
 
-<div id="container"></div>
-<div id="container2"></div>
-<style>
-    #container {
-        min-width: 320px;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-    #container2 {
-        min-width: 320px;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-</style>
 <div>
-    <table id="datatable"  align="center">
+    <table align="right">
+        <thead>
+            <tr>
+                <th></th>
+                <th><h4 style="text-decoration-line:underline"><b>Hello Milwaukee!</b></h4></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Todays Forecast : </th>
+                <td></td>
+                <td><i class='far fa-sun' style='font-size:66px;color:khaki'></i> Sunny</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><i class='fas fa-temperature-high' style='font-size:48px;color:red'></i></td>
+                <td>50 °</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <table id="datatable" align="left" style="margin-top:100px;margin-left:120px">
         <thead>
             <tr>
                 <th></th>
                 <th>Goal </th>
+                <th></th>
                 <th>Actual</th>
             </tr>
         </thead>
@@ -60,6 +72,22 @@
         </tbody>
     </table>
 </div>
+<div id="container2"></div>
+<div id="container"></div>
+
+<style>
+    #container {
+        min-width: 320px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    #container2 {
+        min-width: 320px;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+</style>
 
 <script>
     var chart = Highcharts.chart('container', {
