@@ -4,14 +4,14 @@
     ViewBag.Title = "EditInventoryItem";
 }
 
-<h2>EditInventoryItem</h2>
+<h2>Edit Inventory Item</h2>
 
 @using (Html.BeginForm("EditInventoryItem", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <h4>InventoryModel</h4>
+ 
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @if (User.IsInRole("PurchasingManager"))

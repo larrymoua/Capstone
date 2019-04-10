@@ -219,6 +219,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\GoalsAndActualController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -268,9 +269,15 @@
     <Compile Include="Migrations\201904021927000_hi3.Designer.cs">
       <DependentUpon>201904021927000_hi3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904101804182_goalsAndActual.cs" />
+    <Compile Include="Migrations\201904101804182_goalsAndActual.Designer.cs">
+      <DependentUpon>201904101804182_goalsAndActual.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Actual.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\Goal.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\InventoryModel.cs" />
@@ -1152,6 +1159,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Image\" />
+    <Folder Include="Views\GoalsAndActual\" />
     <Folder Include="Views\Sms\" />
   </ItemGroup>
   <ItemGroup>
@@ -1197,6 +1205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904021927000_hi3.resx">
       <DependentUpon>201904021927000_hi3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904101804182_goalsAndActual.resx">
+      <DependentUpon>201904101804182_goalsAndActual.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
