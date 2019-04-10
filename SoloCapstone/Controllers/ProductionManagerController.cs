@@ -18,6 +18,12 @@ namespace SoloCapstone.Controllers
         // GET: ProductionManager
         public ActionResult Index()
         {
+            List<Goal> goals = db.Goals.Select(e => e).ToList();
+            goals = goals.OrderBy(o => o.StartDate).ToList();
+            var foungGoal = goals[0];
+            Actual actual = db.Actuals.Where(a => a.GoalFK.Equals(foungGoal.Id)).SingleOrDefault();
+            ViewBag.Goals = goals[0];
+            ViewBag.Actuals = actual;
             return View();
         }
 

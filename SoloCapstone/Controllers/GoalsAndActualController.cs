@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SoloCapstone.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,11 @@ namespace SoloCapstone.Controllers
 {
     public class GoalsAndActualController : Controller
     {
+        ApplicationDbContext db;
+        public GoalsAndActualController()
+        {
+            db = new ApplicationDbContext();
+        }
         // GET: GoalsAndActual
         public ActionResult Index()
         {
@@ -23,40 +29,71 @@ namespace SoloCapstone.Controllers
         // GET: GoalsAndActual/Create
         public ActionResult Create()
         {
-            return View();
+            Goal newGoal = new Goal();
+            return View(newGoal);
         }
 
         // POST: GoalsAndActual/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Goal newGoal)
         {
             try
             {
-                // TODO: Add insert logic here
+                Actual actual = new Actual();
+                newGoal.Id = actual.GoalFK;
+                newGoal = actual.Goal;
+                db.Goals.Add(newGoal);
+                db.Actuals.Add(actual);
+                db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Order");
             }
             catch
             {
-                return View();
+                return View("Index", "Order");
             }
         }
 
         // GET: GoalsAndActual/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var findGoal = db.Goals.Find(id);
+            var findActual = db.Actuals.Where(a => a.GoalFK == findGoal.Id).Single();
+            GoalAndActualModel goalAndActualModel = new GoalAndActualModel()
+            {
+                goal = new Goal(),
+                actual = new Actual()
+            };
+            goalAndActualModel.goal = findGoal;
+            goalAndActualModel.actual = findActual;
+            return View(goalAndActualModel);
         }
 
         // POST: GoalsAndActual/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(GoalAndActualModel goalAndActualModel)
         {
+            var findGoal = db.Goals.Find(goalAndActualModel.goal.Id);
+            var findActual = db.Actuals.Where(a => a.GoalFK == goalAndActualModel.goal.Id).SingleOrDefault();
             try
             {
-                // TODO: Add update logic here
+                findGoal.Monday = goalAndActualModel.goal.Monday;
+                findGoal.Tuesday = goalAndActualModel.goal.Tuesday;
+                findGoal.Wednesday = goalAndActualModel.goal.Wednesday;
+                findGoal.Thursday = goalAndActualModel.goal.Thursday;
+                findGoal.Friday = goalAndActualModel.goal.Friday;
+                findGoal.StartDate = goalAndActualModel.goal.StartDate;
+                findGoal.EndDate = goalAndActualModel.goal.EndDate;
 
-                return RedirectToAction("Index");
+                findActual.Monday = goalAndActualModel.actual.Monday;
+                findActual.Tuesday = goalAndActualModel.actual.Tuesday;
+                findActual.Wednesday = goalAndActualModel.actual.Wednesday;
+                findActual.Thursday = goalAndActualModel.actual.Thursday;
+                findActual.Friday = goalAndActualModel.actual.Friday;
+
+                db.SaveChanges();
+
+                return RedirectToAction("Index", "ProductionManager");
             }
             catch
             {

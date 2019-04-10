@@ -38,38 +38,39 @@
         <thead>
             <tr>
                 <th></th>
-                <th>*Goal</th>       
+                <th>*Goal</th>
                 <th>*Actual</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <th>Monday</th>
-                <td>3</td>
-                <td>4</td>
+                <td>@ViewBag.Goals.Monday</td>
+                <td>@ViewBag.Actuals.Monday</td>
             </tr>
             <tr>
                 <th>Tuesday</th>
-                <td>2</td>
-                <td>0</td>
+                <td>@ViewBag.Goals.Tuesday</td>
+                <td>@ViewBag.Actuals.Tuesday</td>
             </tr>
             <tr>
                 <th>Wednesday</th>
-                <td>5</td>
-                <td>11</td>
+                <td>@ViewBag.Goals.Wednesday</td>
+                <td>@ViewBag.Actuals.Wednesday</td>
             </tr>
             <tr>
                 <th>Thursday</th>
-                <td>1</td>
-                <td>1</td>
+                <td>@ViewBag.Goals.Thursday</td>
+                <td>@ViewBag.Actuals.Thursday</td>
             </tr>
             <tr>
                 <th>Friday</th>
-                <td>2</td>
-                <td>4</td>
+                <td>@ViewBag.Goals.Friday</td>
+                <td>@ViewBag.Actuals.Friday</td>
             </tr>
         </tbody>
     </table>
+    @Html.ActionLink("Edit","Edit","GoalsAndActual", new { id = ViewBag.Goals.Id }, new { @class = "btn btn-primary" })
 </div>
 <div id="container2"></div>
 <div id="container"></div>
