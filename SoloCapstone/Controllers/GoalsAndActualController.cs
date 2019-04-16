@@ -17,6 +17,7 @@ namespace SoloCapstone.Controllers
         // GET: GoalsAndActual
         public ActionResult Index()
         {
+
             return View();
         }
 
