@@ -247,20 +247,29 @@ namespace SoloCapstone.Controllers
         [HttpPost]
         public ActionResult CreateInventoryItem(InventoryModel inventory)
         {
+            if(inventory.ImageFile != null && inventory.ImagePath != null)
+            {
                 string fileName = Path.GetFileNameWithoutExtension(inventory.ImageFile.FileName);
                 string extension = Path.GetExtension(inventory.ImageFile.FileName);
                 fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
                 inventory.ImagePath = "~/Image/" + fileName;
                 fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
                 inventory.ImageFile.SaveAs(fileName);
+            }
+
 
                  using (HttpClient client = new HttpClient())
                 {
                     inventory.ImageFile = null;
                     client.BaseAddress = new Uri("http://localhost:52290/");
                     var response = client.PostAsJsonAsync("api/Inventory/", inventory).Result;
-                    Image image = new Image { ImagePath = inventory.ImagePath, ItemName = inventory.ItemName };
-                    db.Images.Add(image);
+                    if (inventory.ImageFile != null && inventory.ImagePath != null)
+                    {
+                        Image image = new Image { ImagePath = inventory.ImagePath, ItemName = inventory.ItemName };
+                        db.Images.Add(image);
+                
+                    }
+   
                     db.SaveChanges();
                     ModelState.Clear();
                     return RedirectToAction("ShowInventory");

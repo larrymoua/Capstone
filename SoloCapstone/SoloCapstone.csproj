@@ -1165,6 +1165,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Image\" />
     <Folder Include="Image\" />
     <Folder Include="Views\Sms\" />
   </ItemGroup>
